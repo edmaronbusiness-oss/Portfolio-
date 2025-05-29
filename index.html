@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Edmar Napay - Virtual Assistant Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
@@ -239,7 +238,6 @@
         <h3>Database Designer Intern</h3>
         <p>Pixel8 Academy (Training Center)</p>
         <p>Worked with data management tools and documentation, enhancing organizational skills.</p>
-        
       </div>
     </section>
 
@@ -260,6 +258,16 @@
     </section>
 
     <section id="projects">
+      <h2>Ongoing Projects</h2>
+      <div class="experience-item">
+        <h3>Content Create Automation</h3>
+        <p>A personal project focused on automating the creation of digital content using Python, AI tools, and APIs. This project aims to reduce repetitive tasks for social media managers and content creators.</p>
+        <p><strong>Status:</strong> In Progress</p>
+        <p><i class="fab fa-github"></i> <a href="https://github.com/Spatula888/content-create-automation" target="_blank">View on GitHub</a></p>
+      </div>
+    </section>
+
+    <section id="projects">
       <h2>Projects</h2>
       <div class="project-item">
         <h3>Faculty Evaluation System</h3>
@@ -271,11 +279,20 @@
         <p>Automated grading system with Excel import and award calculations. Includes CRUD operations for grades and subjects.</p>
         <a href="https://github.com/Spatula888/grading-system" target="_blank">View on GitHub</a>
       </div>
-       <div class="project-item">
+      <div class="project-item">
         <h3>Grocery POS</h3>
         <p>Inventory management and POS for grocery store</p>
         <a href="https://github.com/Spatula888/pos" target="_blank">View on GitHub</a>
       </div>
+    </section>
+
+    <section id="project-tracker">
+      <h2>Project Tracker</h2>
+      <div>
+        <input type="text" id="projectTitle" placeholder="Project title" style="padding: 10px; width: 60%; border-radius: 8px; border: 1px solid #ccc;" />
+        <button onclick="addProject()" class="btn">Add Project</button>
+      </div>
+      <ul id="projectList" style="list-style: none; padding-left: 0; margin-top: 20px;"></ul>
     </section>
 
     <section id="contact">
@@ -289,20 +306,17 @@
   <footer>
     <p>&copy; 2025 Edmar Napay. All rights reserved.</p>
     <div style="margin-top: 20px;">
-  <h3 style="text-align: center; color: #3182ce;">Technologies I Use</h3>
-  <div style="text-align: center; font-size: 2rem;">
-    <i class="fab fa-html5" title="HTML5" style="color: #e34c26; margin: 10px;"></i>
-    <i class="fab fa-css3-alt" title="CSS3" style="color: #264de4; margin: 10px;"></i>
-    <i class="fab fa-js" title="JavaScript" style="color: #f0db4f; margin: 10px;"></i>
-    <i class="fab fa-python" title="Python" style="color: #306998; margin: 10px;"></i>
-    <i class="fab fa-php" title="PHP" style="color: #8892be; margin: 10px;"></i>
-    <i class="fab fa-git-alt" title="Git" style="color: #f1502f; margin: 10px;"></i>
-    <i class="fab fa-github" title="GitHub" style="color: #333; margin: 10px;"></i>
-  </div>
-</div>
-
-</div>
-
+      <h3 style="text-align: center; color: #3182ce;">Technologies I Use</h3>
+      <div style="text-align: center; font-size: 2rem;">
+        <i class="fab fa-html5" title="HTML5" style="color: #e34c26; margin: 10px;"></i>
+        <i class="fab fa-css3-alt" title="CSS3" style="color: #264de4; margin: 10px;"></i>
+        <i class="fab fa-js" title="JavaScript" style="color: #f0db4f; margin: 10px;"></i>
+        <i class="fab fa-python" title="Python" style="color: #306998; margin: 10px;"></i>
+        <i class="fab fa-php" title="PHP" style="color: #8892be; margin: 10px;"></i>
+        <i class="fab fa-git-alt" title="Git" style="color: #f1502f; margin: 10px;"></i>
+        <i class="fab fa-github" title="GitHub" style="color: #333; margin: 10px;"></i>
+      </div>
+    </div>
   </footer>
 
   <script>
@@ -311,9 +325,30 @@
       localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
     }
 
-    // Load saved theme
     if (localStorage.getItem('theme') === 'dark') {
       document.body.classList.add('dark');
+    }
+
+    function addProject() {
+      const input = document.getElementById("projectTitle");
+      const title = input.value.trim();
+      if (!title) return;
+
+      const list = document.getElementById("projectList");
+
+      const item = document.createElement("li");
+      item.className = "project-item";
+      item.style.display = "flex";
+      item.style.justifyContent = "space-between";
+      item.style.alignItems = "center";
+
+      item.innerHTML = `
+        <span>${title}</span>
+        <button onclick="this.parentElement.remove()" class="btn" style="background: #e53e3e; margin: 0; padding: 5px 15px;">Delete</button>
+      `;
+
+      list.appendChild(item);
+      input.value = "";
     }
   </script>
 </body>
