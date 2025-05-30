@@ -17,7 +17,7 @@
     }
 
     body.dark {
-      --bg-color: #1a202c;
+      --bg-color: #1a262c;
       --text-color: #e2e8f0;
       --primary-color: #63b3ed;
       --card-bg: #2d3748;
@@ -215,9 +215,152 @@
     <a href="#experience" class="btn">View Experience</a>
     <a href="resume.pdf" class="btn" download>Download Resume</a>
   </header>
+  <!-- ... (your entire HTML code remains unchanged up to the footer) ... -->
+
+<!-- Chatbot Widget -->
+<div id="chatbot-container">
+  <div id="chatbot-header">💬 Chat with Edmar's Assistant</div>
+  <div id="chatbot-messages"></div>
+  <div id="chatbot-input">
+    <input type="text" id="chat-input" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<style>
+  /* Chatbot Styles */
+  #chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    max-height: 400px;
+    background: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  #chatbot-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  #chatbot-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+  }
+
+  #chatbot-input {
+    display: flex;
+    border-top: 1px solid #ccc;
+  }
+
+  #chatbot-input input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+  }
+
+  #chatbot-input button {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 0 15px;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  function sendMessage() {
+    const input = document.getElementById("chat-input");
+    const message = input.value.trim();
+    if (!message) return;
+
+    const chatBox = document.getElementById("chatbot-messages");
+    const userMsg = `<div><strong>You:</strong> ${message}</div>`;
+    chatBox.innerHTML += userMsg;
+
+    // Normalize message
+    const lowerMessage = message.toLowerCase();
+
+    // Define resume response
+    const resumeResponse = `
+      <div><strong>Bot:</strong><br>
+        <strong>Edmar Napay</strong><br>
+        📞 +63 9453422437 · 📧 howtoctrldiv@gmail.com<br>
+        📍 P3. Brgy. Quirangay, Camalig Albay<br><br>
+
+        <strong>🎯 OBJECTIVE:</strong><br>
+        To leverage my skills in data processing, database management, and customer service to contribute to the success of an organization, while continuously developing my technical expertise and adapting to new challenges in a dynamic work environment.<br><br>
+
+        <strong>🛠️ KEY COMPETENCIES:</strong><br>
+        Programming, Web Development, Microsoft Office (Word, Excel, PowerPoint), Google Workspace, Canva<br>
+        Communication & Teamwork, Time Management<br><br>
+
+        <strong>🎓 EDUCATION:</strong><br>
+        BS in Information Technology - CCDI (Class of 2025)<br>
+        SHS (TVL-ICT) - Malabog National High School<br><br>
+
+        <strong>📜 TRAININGS & CERTIFICATES:</strong><br>
+        Contact Center Services NCII – Call Center Academy (TESDA)<br>
+        Organic Agriculture Production NCII – El Miro De Shei Integrated Farm<br><br>
+
+        <strong>💼 INTERNSHIP EXPERIENCE:</strong><br>
+        Database Designer Intern @ Pixel8 Academy<br>
+        ▸ Designed and optimized database schemas<br>
+        ▸ Used Navicat, XAMPP, dbdiagram.io, Lucidchart<br>
+        ▸ Documented structures and processes<br>
+        📅 July 24 - November 8, 2024<br><br>
+
+        <strong>🧑‍💼 WORK EXPERIENCE:</strong><br>
+        Retail Service Assistant @ LCC Value Store Guinobatan<br><br>
+
+        <strong>📇 CHARACTER REFERENCES:</strong><br>
+        ▸ Bessie P. Guita – Trainer, Call Center Academy (Mentor)<br>
+        ▸ Hisselle Bermas – Software Architect, Pixel8 Web Solutions Inc (Supervisor)<br>
+        📧 hisselle.bermas.pixel8@gmail.com
+      </div>
+    `;
+
+    // Simulate AI response
+    setTimeout(() => {
+      let botReply;
+
+      // Conditional responses based on keywords
+      if (
+        lowerMessage.includes("resume") ||
+        lowerMessage.includes("cv") ||
+        lowerMessage.includes("about") ||
+        lowerMessage.includes("yourself")
+      ) {
+        botReply = resumeResponse;
+      } else {
+        botReply = `<div><strong>Bot:</strong> Hello! I’m Edmar’s assistant. How can I help you today?</div>`;
+      }
+
+      chatBox.innerHTML += botReply;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }, 800);
+
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
+
 
   <main class="container">
-   <section id="about-me">
+    <section id="about-me">
   <h2>About Me</h2>
   <p>I am passionate about leveraging AI automation to streamline tasks, improve productivity, and drive smarter business decisions. With a strong foundation in technology and a curiosity for innovation, I enjoy creating and working with automated systems that simplify complex workflows. My goal is to contribute to forward-thinking teams that embrace digital transformation and intelligent solutions.</p>
 </section>
@@ -343,5 +486,8 @@
       input.value = "";
     }
   </script>
+
+
+
 </body>
 </html>
