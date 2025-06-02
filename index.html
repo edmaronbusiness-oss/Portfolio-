@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Edmar Napay - Virtual Assistant Portfolio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
@@ -72,7 +72,7 @@
       z-index: 1;
       max-width: 800px;
       margin: auto;
-      padding: 0 20px;
+      padding: 0 20px 60px; /* extra bottom padding for chatbot */
     }
 
     header {
@@ -117,6 +117,7 @@
       text-align: center;
       text-decoration: none;
       box-shadow: 0 4px 12px rgba(49, 130, 206, 0.5);
+      border: none;
     }
     .btn:hover {
       background: #2c5282;
@@ -160,6 +161,7 @@
       font-size: 1rem;
       color: var(--primary-color);
       border: 1.5px solid var(--primary-color);
+      border-radius: 8px;
     }
 
     #contact p, #objective p {
@@ -190,6 +192,7 @@
       border-radius: 30px;
       cursor: pointer;
       z-index: 10;
+      box-shadow: 0 4px 12px rgba(49, 130, 206, 0.7);
     }
 
     @media (max-width: 480px) {
@@ -201,7 +204,73 @@
       }
       .skill {
         font-size: 0.9rem;
+        margin: 4px 6px;
+        padding: 8px 14px;
       }
+    }
+
+    /* Chatbot Styles */
+    #chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      max-height: 400px;
+      background: var(--card-bg);
+      border: 2px solid var(--primary-color);
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 999;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #chatbot-header {
+      background: var(--primary-color);
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+      user-select: none;
+    }
+
+    #chatbot-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    #chatbot-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    #chatbot-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+      font-size: 0.9rem;
+      background: var(--card-bg);
+      color: var(--text-color);
+    }
+
+    #chatbot-input button {
+      background: var(--primary-color);
+      border: none;
+      color: white;
+      padding: 0 15px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    #chatbot-input button:hover {
+      background: #2c5282;
     }
   </style>
 </head>
@@ -215,279 +284,230 @@
     <a href="#experience" class="btn">View Experience</a>
     <a href="resume.pdf" class="btn" download>Download Resume</a>
   </header>
-  <!-- ... (your entire HTML code remains unchanged up to the footer) ... -->
-
-<!-- Chatbot Widget -->
-<div id="chatbot-container">
-  <div id="chatbot-header">💬 Chat with Edmar's Assistant</div>
-  <div id="chatbot-messages"></div>
-  <div id="chatbot-input">
-    <input type="text" id="chat-input" placeholder="Type a message..." />
-    <button onclick="sendMessage()">Send</button>
-  </div>
-</div>
-
-<style>
-  /* Chatbot Styles */
-  #chatbot-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 320px;
-    max-height: 400px;
-    background: var(--card-bg);
-    border: 2px solid var(--primary-color);
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 999;
-  }
-
-  #chatbot-header {
-    background: var(--primary-color);
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  #chatbot-messages {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-    font-size: 0.9rem;
-  }
-
-  #chatbot-input {
-    display: flex;
-    border-top: 1px solid #ccc;
-  }
-
-  #chatbot-input input {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    outline: none;
-  }
-
-  #chatbot-input button {
-    background: var(--primary-color);
-    border: none;
-    color: white;
-    padding: 0 15px;
-    cursor: pointer;
-  }
-</style>
-
-<script>
-  function sendMessage() {
-    const input = document.getElementById("chat-input");
-    const message = input.value.trim();
-    if (!message) return;
-
-    const chatBox = document.getElementById("chatbot-messages");
-    const userMsg = `<div><strong>You:</strong> ${message}</div>`;
-    chatBox.innerHTML += userMsg;
-
-    // Normalize message
-    const lowerMessage = message.toLowerCase();
-
-    // Define resume response
-    const resumeResponse = `
-      <div><strong>Bot:</strong><br>
-        <strong>Edmar Napay</strong><br>
-        📞 +63 9453422437 · 📧 howtoctrldiv@gmail.com<br>
-        📍 P3. Brgy. Quirangay, Camalig Albay<br><br>
-
-        <strong>🎯 OBJECTIVE:</strong><br>
-        To leverage my skills in data processing, database management, and customer service to contribute to the success of an organization, while continuously developing my technical expertise and adapting to new challenges in a dynamic work environment.<br><br>
-
-        <strong>🛠️ KEY COMPETENCIES:</strong><br>
-        Programming, Web Development, Microsoft Office (Word, Excel, PowerPoint), Google Workspace, Canva<br>
-        Communication & Teamwork, Time Management<br><br>
-
-        <strong>🎓 EDUCATION:</strong><br>
-        BS in Information Technology - CCDI (Class of 2025)<br>
-        SHS (TVL-ICT) - Malabog National High School<br><br>
-
-        <strong>📜 TRAININGS & CERTIFICATES:</strong><br>
-        Contact Center Services NCII – Call Center Academy (TESDA)<br>
-        Organic Agriculture Production NCII – El Miro De Shei Integrated Farm<br><br>
-
-        <strong>💼 INTERNSHIP EXPERIENCE:</strong><br>
-        Database Designer Intern @ Pixel8 Academy<br>
-        ▸ Designed and optimized database schemas<br>
-        ▸ Used Navicat, XAMPP, dbdiagram.io, Lucidchart<br>
-        ▸ Documented structures and processes<br>
-        📅 July 24 - November 8, 2024<br><br>
-
-        <strong>🧑‍💼 WORK EXPERIENCE:</strong><br>
-        Retail Service Assistant @ LCC Value Store Guinobatan<br><br>
-
-        <strong>📇 CHARACTER REFERENCES:</strong><br>
-        ▸ Bessie P. Guita – Trainer, Call Center Academy (Mentor)<br>
-        ▸ Hisselle Bermas – Software Architect, Pixel8 Web Solutions Inc (Supervisor)<br>
-        📧 hisselle.bermas.pixel8@gmail.com
-      </div>
-    `;
-
-    // Simulate AI response
-    setTimeout(() => {
-      let botReply;
-
-      // Conditional responses based on keywords
-      if (
-        lowerMessage.includes("resume") ||
-        lowerMessage.includes("cv") ||
-        lowerMessage.includes("about") ||
-        lowerMessage.includes("yourself")
-      ) {
-        botReply = resumeResponse;
-      } else {
-        botReply = `<div><strong>Bot:</strong> Hello! I’m Edmar’s assistant. How can I help you today?</div>`;
-      }
-
-      chatBox.innerHTML += botReply;
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }, 800);
-
-    input.value = "";
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-</script>
-
 
   <main class="container">
     <section id="about-me">
-  <h2>About Me</h2>
-  <p>I am passionate about leveraging AI automation to streamline tasks, improve productivity, and drive smarter business decisions. With a strong foundation in technology and a curiosity for innovation, I enjoy creating and working with automated systems that simplify complex workflows. My goal is to contribute to forward-thinking teams that embrace digital transformation and intelligent solutions.</p>
-</section>
+      <h2>About Me</h2>
+      <p>I am passionate about leveraging AI automation to streamline tasks, improve productivity, and drive smarter business decisions. With a strong foundation in technology and a curiosity for innovation, I enjoy creating and working with automated systems that simplify complex workflows. My goal is to contribute to forward-thinking teams and continuously grow my skills in AI and software development.</p>
+    </section>
 
+    <section id="objective">
+      <h2>Objective</h2>
+      <p>To secure a position as a Virtual Assistant where I can utilize AI tools, my programming skills, and social media management expertise to optimize business operations and enhance client satisfaction.</p>
+    </section>
 
     <section id="experience">
-      
-      
+      <h2>Experience</h2>
+
       <div class="experience-item">
-        <h3>Database Designer Intern</h3>
-        <p>Pixel8 Academy (Training Center)</p>
-        <p>Worked with data management tools and documentation, enhancing organizational skills.</p>
+        <h3>AI-Powered Virtual Assistant (Entry-Level)</h3>
+        <p><em>Self-employed | 2023 - Present</em></p>
+        <ul>
+          <li>Provide virtual assistance using AI tools for scheduling, content creation, and customer support.</li>
+          <li>Automate repetitive tasks using scripts and workflow automation platforms.</li>
+          <li>Manage social media accounts and marketing campaigns.</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <h3>Web Developer Intern</h3>
+        <p><em>Local Tech Startup | Jan 2024 - May 2024</em></p>
+        <ul>
+          <li>Assisted in developing responsive web interfaces using HTML, CSS, and JavaScript.</li>
+          <li>Implemented features and fixed bugs in web applications.</li>
+          <li>Collaborated with designers and developers to enhance user experience.</li>
+          <li>Learned version control using Git and basic backend integration.</li>
+        </ul>
       </div>
     </section>
 
     <section id="skills">
-      <h2>Skills & Proficiencies</h2>
+      <h2>Skills</h2>
       <div>
-        <span class="skill">Microsoft Office</span>
-        <span class="skill">Google Workspace</span>
-        <span class="skill">Canva</span>
-        <span class="skill">Communication</span>
-        <span class="skill">Teamwork</span>
-        <span class="skill">Time Management</span>
-        <span class="skill">Customer Service</span>
-        <span class="skill">Data Entry</span>
-        <span class="skill">Entry Level Python (Django)</span>
-        <span class="skill">Entry Level PHP & SQL</span>
+        <span class="skill">AI Automation</span>
+        <span class="skill">JavaScript</span>
+        <span class="skill">HTML & CSS</span>
+        <span class="skill">Python</span>
+        <span class="skill">Social Media Management</span>
+        <span class="skill">Workflow Automation</span>
+        <span class="skill">Git & GitHub</span>
       </div>
     </section>
 
     <section id="projects">
-      <h2>Ongoing Projects</h2>
-      <div class="experience-item">
-        <h3>Content Create Automation</h3>
-        <p>A personal project focused on automating the creation of digital content using Python, AI tools, and APIs. This project aims to reduce repetitive tasks for social media managers and content creators.</p>
-        <p><strong>Status:</strong> In Progress</p>
-        <p><i class="fab fa-github"></i> <a href="https://github.com/Spatula888/content-create-automation" target="_blank">View on GitHub</a></p>
-      </div>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <div class="project-item">
-        <h3>Faculty Evaluation System</h3>
-        <p>Built with PHP, MySQL, and JavaScript. Allows performance tracking of faculty members by students.</p>
-        <a href="https://github.com/Spatula888/faculty-evaluation" target="_blank">View on GitHub</a>
-      </div>
-      <div class="project-item">
-        <h3>Grading System</h3>
-        <p>Automated grading system with Excel import and award calculations. Includes CRUD operations for grades and subjects.</p>
-        <a href="https://github.com/Spatula888/grading-system" target="_blank">View on GitHub</a>
-      </div>
-      <div class="project-item">
-        <h3>Grocery POS</h3>
-        <p>Inventory management and POS for grocery store</p>
-        <a href="https://github.com/Spatula888/pos" target="_blank">View on GitHub</a>
-      </div>
-    </section>
-
-    <section id="project-tracker">
       <h2>Project Tracker</h2>
-      <div>
-        <input type="text" id="projectTitle" placeholder="Project title" style="padding: 10px; width: 60%; border-radius: 8px; border: 1px solid #ccc;" />
-        <button onclick="addProject()" class="btn">Add Project</button>
+      <form id="project-form" style="margin-bottom: 20px;">
+        <input type="text" id="project-name" placeholder="Project name" required style="padding:8px; width:60%; border-radius:6px; border:1px solid #ccc;" />
+        <input type="date" id="project-date" required style="padding:8px; border-radius:6px; border:1px solid #ccc;" />
+        <button type="submit" class="btn">Add Project</button>
+      </form>
+
+      <div id="project-list">
+        <!-- Projects will appear here -->
       </div>
-      <ul id="projectList" style="list-style: none; padding-left: 0; margin-top: 20px;"></ul>
     </section>
 
     <section id="contact">
-      <h2>Contact Me</h2>
-      <p><i class="fas fa-envelope"></i> <a href="mailto:howtoctrldiv@gmail.com">howtoctrldiv@gmail.com</a></p>
-      <p><i class="fas fa-phone"></i> +63 998 765 4321</p>
-      <p><i class="fab fa-github"></i> <a href="https://github.com/Spatula888" target="_blank">github.com/Spatula888</a></p>
+      <h2>Contact</h2>
+      <p><i class="fas fa-envelope"></i> edmar@example.com</p>
+      <p><i class="fas fa-phone"></i> +63 912 345 6789</p>
+      <p><i class="fas fa-map-marker-alt"></i> Manila, Philippines</p>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Edmar Napay. All rights reserved.</p>
-    <div style="margin-top: 20px;">
-      <h3 style="text-align: center; color: #3182ce;">Technologies I Use</h3>
-      <div style="text-align: center; font-size: 2rem;">
-        <i class="fab fa-html5" title="HTML5" style="color: #e34c26; margin: 10px;"></i>
-        <i class="fab fa-css3-alt" title="CSS3" style="color: #264de4; margin: 10px;"></i>
-        <i class="fab fa-js" title="JavaScript" style="color: #f0db4f; margin: 10px;"></i>
-        <i class="fab fa-python" title="Python" style="color: #306998; margin: 10px;"></i>
-        <i class="fab fa-php" title="PHP" style="color: #8892be; margin: 10px;"></i>
-        <i class="fab fa-git-alt" title="Git" style="color: #f1502f; margin: 10px;"></i>
-        <i class="fab fa-github" title="GitHub" style="color: #333; margin: 10px;"></i>
-      </div>
-    </div>
+    &copy; 2025 Edmar Napay. All rights reserved.
   </footer>
 
+  <!-- Chatbot widget -->
+  <div id="chatbot-container" aria-label="Chatbot assistant">
+    <div id="chatbot-header">Virtual Assistant Chatbot</div>
+    <div id="chatbot-messages"></div>
+    <form id="chatbot-input" autocomplete="off">
+      <input type="text" id="chatbot-text" placeholder="Ask me anything..." required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
   <script>
+    // Dark Mode Toggle with Persistence
+    function setDarkMode(enabled) {
+      if (enabled) {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.remove('dark');
+      }
+      localStorage.setItem('darkMode', enabled);
+    }
+
     function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+      const isDark = document.body.classList.contains('dark');
+      setDarkMode(!isDark);
     }
 
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark');
+    // Initialize dark mode on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const darkMode = localStorage.getItem('darkMode') === 'true';
+      setDarkMode(darkMode);
+
+      loadProjects();
+    });
+
+    // Project Tracker
+    const projectForm = document.getElementById('project-form');
+    const projectList = document.getElementById('project-list');
+
+    function loadProjects() {
+      const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+      projectList.innerHTML = '';
+      projects.forEach((proj, i) => {
+        addProjectToDOM(proj, i);
+      });
     }
 
-    function addProject() {
-      const input = document.getElementById("projectTitle");
-      const title = input.value.trim();
-      if (!title) return;
+    function saveProjects(projects) {
+      localStorage.setItem('projects', JSON.stringify(projects));
+    }
 
-      const list = document.getElementById("projectList");
-
-      const item = document.createElement("li");
-      item.className = "project-item";
-      item.style.display = "flex";
-      item.style.justifyContent = "space-between";
-      item.style.alignItems = "center";
-
-      item.innerHTML = `
-        <span>${title}</span>
-        <button onclick="this.parentElement.remove()" class="btn" style="background: #e53e3e; margin: 0; padding: 5px 15px;">Delete</button>
+    function addProjectToDOM(project, index) {
+      const div = document.createElement('div');
+      div.className = 'project-item';
+      div.innerHTML = `
+        <strong>${project.name}</strong><br/>
+        <small>Deadline: ${project.date}</small>
+        <button style="float:right; background:#e53e3e; border:none; border-radius:5px; color:white; cursor:pointer; padding: 3px 8px;">Delete</button>
       `;
 
-      list.appendChild(item);
-      input.value = "";
+      const btn = div.querySelector('button');
+      btn.addEventListener('click', () => {
+        deleteProject(index);
+      });
+
+      projectList.appendChild(div);
     }
+
+    function deleteProject(index) {
+      let projects = JSON.parse(localStorage.getItem('projects') || '[]');
+      projects.splice(index, 1);
+      saveProjects(projects);
+      loadProjects();
+    }
+
+    projectForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('project-name').value.trim();
+      const date = document.getElementById('project-date').value;
+
+      if (!name || !date) {
+        alert('Please enter both project name and date.');
+        return;
+      }
+
+      const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+      projects.push({ name, date });
+      saveProjects(projects);
+
+      projectForm.reset();
+      loadProjects();
+    });
+
+    // Simple Chatbot Logic (Basic)
+    const chatbotForm = document.getElementById('chatbot-input');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+
+    function addChatMessage(message, fromUser = false) {
+      const msgDiv = document.createElement('div');
+      msgDiv.style.marginBottom = '10px';
+      msgDiv.style.padding = '8px 12px';
+      msgDiv.style.borderRadius = '12px';
+      msgDiv.style.maxWidth = '85%';
+      msgDiv.style.clear = 'both';
+      msgDiv.style.whiteSpace = 'pre-wrap';
+      if (fromUser) {
+        msgDiv.style.background = '#3182ce';
+        msgDiv.style.color = 'white';
+        msgDiv.style.float = 'right';
+      } else {
+        msgDiv.style.background = '#e2e8f0';
+        msgDiv.style.color = '#2d3748';
+        msgDiv.style.float = 'left';
+      }
+      msgDiv.textContent = message;
+      chatbotMessages.appendChild(msgDiv);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function chatbotReply(message) {
+      // For demo, simple keyword matching
+      message = message.toLowerCase();
+
+      if (message.includes('hello') || message.includes('hi')) {
+        addChatMessage('Hello! How can I assist you today?');
+      } else if (message.includes('your name')) {
+        addChatMessage('I am Edmar\'s Virtual Assistant Chatbot.');
+      } else if (message.includes('help')) {
+        addChatMessage('You can ask me about Edmar\'s skills, experience, or how to contact him.');
+      } else if (message.includes('skills')) {
+        addChatMessage('Edmar is skilled in AI automation, JavaScript, Python, social media management, and more.');
+      } else if (message.includes('contact')) {
+        addChatMessage('You can contact Edmar at edmar@example.com or call +63 912 345 6789.');
+      } else {
+        addChatMessage('Sorry, I am still learning. Could you please rephrase your question?');
+      }
+    }
+
+    chatbotForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const input = document.getElementById('chatbot-text');
+      const text = input.value.trim();
+      if (!text) return;
+      addChatMessage(text, true);
+      input.value = '';
+
+      setTimeout(() => {
+        chatbotReply(text);
+      }, 500);
+    });
   </script>
-
-
-
 </body>
 </html>
