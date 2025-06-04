@@ -162,6 +162,8 @@
       color: var(--primary-color);
       border: 1.5px solid var(--primary-color);
       border-radius: 8px;
+      cursor: default;
+      user-select: none;
     }
 
     #contact p, #objective p {
@@ -193,6 +195,10 @@
       cursor: pointer;
       z-index: 10;
       box-shadow: 0 4px 12px rgba(49, 130, 206, 0.7);
+      transition: background 0.3s ease;
+    }
+    .toggle-theme:hover {
+      background: #2c5282;
     }
 
     @media (max-width: 480px) {
@@ -275,7 +281,7 @@
   </style>
 </head>
 <body>
-  <button class="toggle-theme" onclick="toggleDarkMode()">🌗 Toggle Theme</button>
+  <button class="toggle-theme" aria-label="Toggle dark mode" onclick="toggleDarkMode()">🌗 Toggle Theme</button>
 
   <header>
     <img src="photo.jpg" alt="Edmar Napay Photo" class="profile-photo" />
@@ -299,7 +305,7 @@
     <section id="experience">
       <h2>Experience</h2>
 
-      <div class="experience-item">
+      <div class="experience-item" tabindex="0" aria-label="AI-Powered Virtual Assistant experience">
         <h3>AI-Powered Virtual Assistant (Entry-Level)</h3>
         <p><em>Self-employed | 2023 - Present</em></p>
         <ul>
@@ -309,7 +315,7 @@
         </ul>
       </div>
 
-      <div class="experience-item">
+      <div class="experience-item" tabindex="0" aria-label="Web Developer Intern experience">
         <h3>Web Developer Intern</h3>
         <p><em>Local Tech Startup | Jan 2024 - May 2024</em></p>
         <ul>
@@ -324,34 +330,34 @@
     <section id="skills">
       <h2>Skills</h2>
       <div>
-        <span class="skill">AI Automation</span>
-        <span class="skill">JavaScript</span>
-        <span class="skill">HTML & CSS</span>
-        <span class="skill">Python</span>
-        <span class="skill">Social Media Management</span>
-        <span class="skill">Workflow Automation</span>
-        <span class="skill">Git & GitHub</span>
+        <span class="skill" tabindex="0" aria-label="AI Automation skill">AI Automation</span>
+        <span class="skill" tabindex="0" aria-label="JavaScript skill">JavaScript</span>
+        <span class="skill" tabindex="0" aria-label="HTML and CSS skill">HTML & CSS</span>
+        <span class="skill" tabindex="0" aria-label="Python skill">Python</span>
+        <span class="skill" tabindex="0" aria-label="Social Media Management skill">Social Media Management</span>
+        <span class="skill" tabindex="0" aria-label="Workflow Automation skill">Workflow Automation</span>
+        <span class="skill" tabindex="0" aria-label="Git and GitHub skill">Git & GitHub</span>
       </div>
     </section>
 
     <section id="projects">
       <h2>Project Tracker</h2>
-      <form id="project-form" style="margin-bottom: 20px;">
-        <input type="text" id="project-name" placeholder="Project name" required style="padding:8px; width:60%; border-radius:6px; border:1px solid #ccc;" />
-        <input type="date" id="project-date" required style="padding:8px; border-radius:6px; border:1px solid #ccc;" />
-        <button type="submit" class="btn">Add Project</button>
+      <form id="project-form" style="margin-bottom: 20px;" aria-label="Add project form">
+        <input type="text" id="project-name" placeholder="Project name" required aria-required="true" aria-label="Project name" style="padding:8px; width:60%; border-radius:6px; border:1px solid #ccc;" />
+        <input type="date" id="project-date" required aria-required="true" aria-label="Project deadline date" style="padding:8px; border-radius:6px; border:1px solid #ccc;" />
+        <button type="submit" class="btn" aria-label="Add Project">Add Project</button>
       </form>
 
-      <div id="project-list">
+      <div id="project-list" aria-live="polite" aria-atomic="true" aria-label="List of projects">
         <!-- Projects will appear here -->
       </div>
     </section>
 
     <section id="contact">
       <h2>Contact</h2>
-      <p><i class="fas fa-envelope"></i> edmar@example.com</p>
-      <p><i class="fas fa-phone"></i> +63 912 345 6789</p>
-      <p><i class="fas fa-map-marker-alt"></i> Manila, Philippines</p>
+      <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:edmar@example.com">edmar@example.com</a></p>
+      <p><i class="fas fa-phone" aria-hidden="true"></i> <a href="tel:+639123456789">+63 912 345 6789</a></p>
+      <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Manila, Philippines</p>
     </section>
   </main>
 
@@ -362,10 +368,10 @@
   <!-- Chatbot widget -->
   <div id="chatbot-container" aria-label="Chatbot assistant">
     <div id="chatbot-header">Virtual Assistant Chatbot</div>
-    <div id="chatbot-messages"></div>
-    <form id="chatbot-input" autocomplete="off">
-      <input type="text" id="chatbot-text" placeholder="Ask me anything..." required />
-      <button type="submit">Send</button>
+    <div id="chatbot-messages" role="log" aria-live="polite" aria-atomic="false" tabindex="0"></div>
+    <form id="chatbot-input" autocomplete="off" aria-label="Chatbot input form">
+      <input type="text" id="chatbot-text" placeholder="Ask me anything..." required aria-required="true" aria-label="Chatbot message input" />
+      <button type="submit" aria-label="Send message">Send</button>
     </form>
   </div>
 
@@ -412,10 +418,12 @@
     function addProjectToDOM(project, index) {
       const div = document.createElement('div');
       div.className = 'project-item';
+      div.setAttribute('tabindex', '0');
+      div.setAttribute('aria-label', `Project named ${project.name} with deadline ${project.date}`);
       div.innerHTML = `
         <strong>${project.name}</strong><br/>
         <small>Deadline: ${project.date}</small>
-        <button style="float:right; background:#e53e3e; border:none; border-radius:5px; color:white; cursor:pointer; padding: 3px 8px;">Delete</button>
+        <button style="float:right; background:#e53e3e; border:none; border-radius:5px; color:white; cursor:pointer; padding: 3px 8px;" aria-label="Delete project ${project.name}">Delete</button>
       `;
 
       const btn = div.querySelector('button');
@@ -467,105 +475,107 @@
         msgDiv.style.background = '#3182ce';
         msgDiv.style.color = 'white';
         msgDiv.style.float = 'right';
+        msgDiv.setAttribute('aria-label', 'User message');
       } else {
         msgDiv.style.background = '#e2e8f0';
         msgDiv.style.color = '#2d3748';
         msgDiv.style.float = 'left';
+        msgDiv.setAttribute('aria-label', 'Chatbot reply');
       }
       msgDiv.textContent = message;
       chatbotMessages.appendChild(msgDiv);
       chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     }
 
-   function chatbotReply(message) {
-  // For demo, simple keyword matching
-  message = message.toLowerCase();
+    function chatbotReply(message) {
+      message = message.toLowerCase();
 
-  if (message.includes('hello') || message.includes('hi')) {
-    addChatMessage('Hello! How can I assist you today?');
-  } else if (message.includes('your name')) {
-    addChatMessage('I am Edmar\'s Virtual Assistant Chatbot.');
-  } else if (message.includes('help')) {
-    addChatMessage('You can ask me about Edmar\'s skills, experience, or how to contact him.');
-  } else if (message.includes('skills')) {
-    addChatMessage('Edmar is skilled in AI automation, JavaScript, Python, social media management, and more.');
-  } else if (message.includes('contact')) {
-    addChatMessage('You can contact Edmar at edmar@example.com or call +63 912 345 6789.');
-  } else if (message.includes('apply to entry level positions')) {
-    const companies = [
-      'Blue Horizon Technologies',
-      'GreenLeaf Innovations',
-      'SilverLine Solutions',
-      'BrightPath Enterprises',
-      'NextGen Dynamics',
-      'ClearWater Systems',
-      'Pinnacle Ventures',
-      'UrbanEdge Studios',
-      'Skyward Logistics',
-      'EchoStream Media',
-      'Summit Peak Consulting',
-      'TrueNorth Financial',
-      'Evergreen Marketing',
-      'CrystalWave Communications',
-      'IronClad Security',
-      'Maple Ridge Partners',
-      'NovaBright Technologies',
-      'RapidFlow Networks',
-      'Solaris Energy Group',
-      'VividCore Designs',
-      'RedStone Analytics',
-      'CloudNine Software',
-      'PeakPoint Resources',
-      'FusionCraft Labs',
-      'Apex Innovations',
-      'Quantum Leap Robotics',
-      'PhoenixRise Group',
-      'Luminous Health Solutions',
-      'Crescent Moon Studios',
-      'ClearView Advisors',
-      'IronBridge Construction',
-      'SilverPeak Ventures',
-      'BrightSide Media',
-      'TigerEye Analytics',
-      'Harmony Wellness Co.',
-      'CrystalBay Consulting',
-      'BlueWave Technologies',
-      'NovaCore Systems',
-      'Summit Ridge Partners',
-      'UrbanPulse Marketing',
-      'EchoLake Studios',
-      'TrueBlue Financial',
-      'PeakVista Resources',
-      'SolarWind Energy',
-      'FusionPoint Labs',
-      'IronGate Security',
-      'MapleLeaf Partners',
-      'Quantum Core Robotics',
-      'RedSky Analytics',
-      'LuminousPath Health'
-    ];
+      if (message.includes('hello') || message.includes('hi')) {
+        addChatMessage('Hello! How can I assist you today?');
+      } else if (message.includes('your name')) {
+        addChatMessage('I am Edmar\'s Virtual Assistant Chatbot.');
+      } else if (message.includes('help')) {
+        addChatMessage('You can ask me about Edmar\'s skills, experience, or how to contact him.');
+      } else if (message.includes('skills')) {
+        addChatMessage('Edmar is skilled in AI automation, JavaScript, Python, social media management, and more.');
+      } else if (message.includes('contact')) {
+        addChatMessage('You can contact Edmar at edmar@example.com or call +63 912 345 6789.');
+      } else if (message.includes('apply to entry level positions')) {
+        const companies = [
+          'Blue Horizon Technologies',
+          'GreenLeaf Innovations',
+          'SilverLine Solutions',
+          'BrightPath Enterprises',
+          'NextGen Dynamics',
+          'ClearWater Systems',
+          'Pinnacle Ventures',
+          'UrbanEdge Studios',
+          'Skyward Logistics',
+          'EchoStream Media',
+          'Summit Peak Consulting',
+          'TrueNorth Financial',
+          'Evergreen Marketing',
+          'CrystalWave Communications',
+          'IronClad Security',
+          'Maple Ridge Partners',
+          'NovaBright Technologies',
+          'RapidFlow Networks',
+          'Solaris Energy Group',
+          'VividCore Designs',
+          'RedStone Analytics',
+          'CloudNine Software',
+          'PeakPoint Resources',
+          'FusionCraft Labs',
+          'Apex Innovations',
+          'Quantum Leap Robotics',
+          'PhoenixRise Group',
+          'Luminous Health Solutions',
+          'Crescent Moon Studios',
+          'ClearView Advisors',
+          'IronBridge Construction',
+          'SilverPeak Ventures',
+          'BrightSide Media',
+          'TigerEye Analytics',
+          'Harmony Wellness Co.',
+          'CrystalBay Consulting',
+          'BlueWave Technologies',
+          'NovaCore Systems',
+          'Summit Ridge Partners',
+          'UrbanPulse Marketing',
+          'EchoLake Studios',
+          'TrueBlue Financial',
+          'PeakVista Resources',
+          'SolarWind Energy',
+          'FusionPoint Labs',
+          'IronGate Security',
+          'MapleLeaf Partners',
+          'Quantum Core Robotics',
+          'RedSky Analytics',
+          'LuminousPath Health'
+        ];
 
-    // Simulate application submission
-    const applications = companies.map(company => `Application submitted to ${company}`).join('\n');
-    addChatMessage(applications);
-  } else {
-    addChatMessage('Sorry, I am still learning. Could you please rephrase your question?');
-  }
-}
+        const applications = companies.map(company => `Application submitted to ${company}`).join('\n');
+        addChatMessage(applications);
+      } else if (message.includes('project')) {
+        addChatMessage('You can track your projects using the Project Tracker section above.');
+      } else {
+        addChatMessage('Sorry, I am still learning. Could you please rephrase your question?');
+      }
+    }
 
-chatbotForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const input = document.getElementById('chatbot-text');
-  const text = input.value.trim();
-  if (!text) return;
-  addChatMessage(text, true);
-  input.value = '';
+    chatbotForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const input = document.getElementById('chatbot-text');
+      const text = input.value.trim();
+      if (!text) return;
+      addChatMessage(text, true);
+      input.value = '';
 
-  setTimeout(() => {
-    chatbotReply(text);
-  }, 500);
-});
-
+      setTimeout(() => {
+        chatbotReply(text);
+      }, 500);
+    });
   </script>
 </body>
 </html>
+
