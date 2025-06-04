@@ -477,37 +477,95 @@
       chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     }
 
-    function chatbotReply(message) {
-      // For demo, simple keyword matching
-      message = message.toLowerCase();
+   function chatbotReply(message) {
+  // For demo, simple keyword matching
+  message = message.toLowerCase();
 
-      if (message.includes('hello') || message.includes('hi')) {
-        addChatMessage('Hello! How can I assist you today?');
-      } else if (message.includes('your name')) {
-        addChatMessage('I am Edmar\'s Virtual Assistant Chatbot.');
-      } else if (message.includes('help')) {
-        addChatMessage('You can ask me about Edmar\'s skills, experience, or how to contact him.');
-      } else if (message.includes('skills')) {
-        addChatMessage('Edmar is skilled in AI automation, JavaScript, Python, social media management, and more.');
-      } else if (message.includes('contact')) {
-        addChatMessage('You can contact Edmar at edmar@example.com or call +63 912 345 6789.');
-      } else {
-        addChatMessage('Sorry, I am still learning. Could you please rephrase your question?');
-      }
-    }
+  if (message.includes('hello') || message.includes('hi')) {
+    addChatMessage('Hello! How can I assist you today?');
+  } else if (message.includes('your name')) {
+    addChatMessage('I am Edmar\'s Virtual Assistant Chatbot.');
+  } else if (message.includes('help')) {
+    addChatMessage('You can ask me about Edmar\'s skills, experience, or how to contact him.');
+  } else if (message.includes('skills')) {
+    addChatMessage('Edmar is skilled in AI automation, JavaScript, Python, social media management, and more.');
+  } else if (message.includes('contact')) {
+    addChatMessage('You can contact Edmar at edmar@example.com or call +63 912 345 6789.');
+  } else if (message.includes('apply to entry level positions')) {
+    const companies = [
+      'Blue Horizon Technologies',
+      'GreenLeaf Innovations',
+      'SilverLine Solutions',
+      'BrightPath Enterprises',
+      'NextGen Dynamics',
+      'ClearWater Systems',
+      'Pinnacle Ventures',
+      'UrbanEdge Studios',
+      'Skyward Logistics',
+      'EchoStream Media',
+      'Summit Peak Consulting',
+      'TrueNorth Financial',
+      'Evergreen Marketing',
+      'CrystalWave Communications',
+      'IronClad Security',
+      'Maple Ridge Partners',
+      'NovaBright Technologies',
+      'RapidFlow Networks',
+      'Solaris Energy Group',
+      'VividCore Designs',
+      'RedStone Analytics',
+      'CloudNine Software',
+      'PeakPoint Resources',
+      'FusionCraft Labs',
+      'Apex Innovations',
+      'Quantum Leap Robotics',
+      'PhoenixRise Group',
+      'Luminous Health Solutions',
+      'Crescent Moon Studios',
+      'ClearView Advisors',
+      'IronBridge Construction',
+      'SilverPeak Ventures',
+      'BrightSide Media',
+      'TigerEye Analytics',
+      'Harmony Wellness Co.',
+      'CrystalBay Consulting',
+      'BlueWave Technologies',
+      'NovaCore Systems',
+      'Summit Ridge Partners',
+      'UrbanPulse Marketing',
+      'EchoLake Studios',
+      'TrueBlue Financial',
+      'PeakVista Resources',
+      'SolarWind Energy',
+      'FusionPoint Labs',
+      'IronGate Security',
+      'MapleLeaf Partners',
+      'Quantum Core Robotics',
+      'RedSky Analytics',
+      'LuminousPath Health'
+    ];
 
-    chatbotForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const input = document.getElementById('chatbot-text');
-      const text = input.value.trim();
-      if (!text) return;
-      addChatMessage(text, true);
-      input.value = '';
+    // Simulate application submission
+    const applications = companies.map(company => `Application submitted to ${company}`).join('\n');
+    addChatMessage(applications);
+  } else {
+    addChatMessage('Sorry, I am still learning. Could you please rephrase your question?');
+  }
+}
 
-      setTimeout(() => {
-        chatbotReply(text);
-      }, 500);
-    });
+chatbotForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const input = document.getElementById('chatbot-text');
+  const text = input.value.trim();
+  if (!text) return;
+  addChatMessage(text, true);
+  input.value = '';
+
+  setTimeout(() => {
+    chatbotReply(text);
+  }, 500);
+});
+
   </script>
 </body>
 </html>
